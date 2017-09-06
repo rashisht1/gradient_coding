@@ -2,7 +2,6 @@ from __future__ import print_function
 import sys
 import random
 from util import *
-from generate_data_helpers import *
 import os
 import numpy as np
 import time
@@ -10,13 +9,13 @@ from mpi4py import MPI
 import scipy.special as sp
 import scipy.sparse as sps
 
-def coded_logistic_regression(n_procs, n_samples, n_features, input_dir, n_stragglers, is_real_data):
+def coded_logistic_regression(n_procs, n_samples, n_features, input_dir, n_stragglers, is_real_data, params):
 
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
     size = comm.Get_size()
     
-    rounds=100
+    rounds=params[0]
 
     n_workers=n_procs-1
     rows_per_worker=n_samples/(n_procs-1)
@@ -81,8 +80,8 @@ def coded_logistic_regression(n_procs, n_samples, n_features, input_dir, n_strag
         completed_workers = np.ndarray(n_procs-1,dtype=bool)
         status = MPI.Status()
 
-        eta0=10.0 # ----- learning rate
-        alpha = 1.0/n_samples #0.0001 # --- coefficient of l2 regularization
+        eta0=params[2] # ----- learning rate
+        alpha = params[1] # --- coefficient of l2 regularization
         utemp = np.zeros(n_features) # for accelerated gradient descent
     
     B = comm.bcast(B, root=0)
@@ -150,14 +149,14 @@ def coded_logistic_regression(n_procs, n_samples, n_features, input_dir, n_strag
             # case_idx = calculate_indexA(completed_stragglers)
             # g = np.dot(A[case_idx,ind_set],tmpBuff)
             
-            grad_multiplier = eta0/n_samples
+            grad_multiplier = eta0[i]/n_samples
             # ---- update step for gradient descent
-            # np.subtract((1-2*alpha*eta0)*beta , grad_multiplier*g, out=beta)
+            # np.subtract((1-2*alpha*eta0[i])*beta , grad_multiplier*g, out=beta)
 
             # ---- updates for accelerated gradient descent
             theta = 2.0/(i+2.0)
             ytemp = (1-theta)*beta + theta*utemp
-            betatemp = ytemp - grad_multiplier*g - (2*alpha*eta0)*beta
+            betatemp = ytemp - grad_multiplier*g - (2*alpha*eta0[i])*beta
             utemp = beta + (betatemp-beta)*(1/theta)
             beta[:] = betatemp
 
