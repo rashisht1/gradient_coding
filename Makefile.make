@@ -5,7 +5,7 @@ N_PROCS=21
 N_STRAGGLERS = 5
 
 # For partially coded version: how many pieces of workload will one worker be handling.
-N_PARTITIONS=30
+N_PARTITIONS=20
 
 # Switch to enable partial coded schemes
 PARTIAL_CODED=0

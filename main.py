@@ -28,7 +28,7 @@ input_dir = input_dir+"/" if not input_dir[-1] == "/" else input_dir
 # ---- Modifiable parameters
 num_itrs = 100 # Number of iterations
 
-alpha = 1.0/n_rows #0.0001 # --- coefficient of l2 regularization
+alpha = 1.0/n_rows #sometimes we used 0.0001 # --- coefficient of l2 regularization
 
 learning_rate_schedule = 10.0*np.ones(num_itrs)
 # eta0=10.0
@@ -53,9 +53,9 @@ if is_coded:
 
     if partitions:
         if(coded_ver == 1):
-            partial_replication_logistic_regression(n_procs, n_rows, n_cols, input_dir + dataset +"/partial/" + str((partitions-n_stragglers)*(n_procs-1)) + "/", n_stragglers, partitions, is_real)
+            partial_replication_logistic_regression(n_procs, n_rows, n_cols, input_dir + dataset +"/partial/" + str((partitions-n_stragglers)*(n_procs-1)) + "/", n_stragglers, partitions, is_real, params)
         elif(coded_ver == 0):
-            partial_coded_logistic_regression(n_procs, n_rows, n_cols, input_dir + dataset +"/partial/" + str((partitions-n_stragglers)*(n_procs-1)) + "/", n_stragglers, partitions, is_real)
+            partial_coded_logistic_regression(n_procs, n_rows, n_cols, input_dir + dataset +"/partial/" + str((partitions-n_stragglers)*(n_procs-1)) + "/", n_stragglers, partitions, is_real, params)
             
     else:
         if(coded_ver == 0):
@@ -66,7 +66,6 @@ if is_coded:
 
         elif(coded_ver ==2):
             avoidstragg_logistic_regression(n_procs, n_rows, n_cols, input_dir + dataset +"/" + str(n_procs-1) + "/", n_stragglers, is_real, params)
-            #avoidstragg_nonacc_logistic_regression(n_procs, n_rows, n_cols, input_dir + dataset +"/" + str(n_procs-1) + "/", n_stragglers, is_real)
 else:
     naive_logistic_regression(n_procs, n_rows, n_cols, input_dir + dataset +"/" + str(n_procs-1) + "/", is_real, params)
 
