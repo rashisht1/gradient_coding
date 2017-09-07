@@ -2,7 +2,6 @@ from __future__ import print_function
 import sys
 import random
 from util import *
-from generate_data_helpers import *
 import os
 import numpy as np
 import scipy.sparse as sps
