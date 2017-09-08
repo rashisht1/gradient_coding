@@ -170,7 +170,7 @@ def partial_coded_logistic_regression(n_procs, n_samples, n_features, input_dir,
                 sreq = comm.Isend([beta, MPI.DOUBLE], dest = l, tag = i)
                 send_set.append(sreq)
 
-            while while cnt_completed < n_procs-1-n_stragglers or cnt_firstpart<n_workers:
+            while cnt_completed < n_procs-1-n_stragglers or cnt_firstpart<n_workers:
 
                 req_done = MPI.Request.Waitany(request_set[i], status)
                 src = status.Get_source()
