@@ -6,7 +6,6 @@ from naive import *
 from coded import *
 from replication import *
 from avoidstragg import *
-from avoidstragg_nonacc import *
 from partial_replication import *
 from partial_coded import *
 import numpy as np
