@@ -13,10 +13,10 @@ PARTIAL_CODED=1
 # Path to folder containing the data folders
 DATA_FOLDER=/straggdata/
 
-IS_REAL = 0
+IS_REAL = 1
 
 DATASET = amazon-dataset
-N_ROWS=26190
+N_ROWS=26210
 N_COLS=241915
 
 # Note that DATASET is automatically set to artificial-data/ (n_rows)x(n_cols)/... if IS_REAL is set to 0 \

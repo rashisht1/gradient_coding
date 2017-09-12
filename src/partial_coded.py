@@ -113,6 +113,7 @@ def partial_coded_logistic_regression(n_procs, n_samples, n_features, input_dir,
 
         eta0 = params[2] # ----- learning rate
         alpha = params[1] # --- coefficient of l2 regularization
+        utemp = np.zeros(n_features) # for accelerated gradient descent
     
     B = comm.bcast(B, root=0)
 
