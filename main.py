@@ -46,7 +46,7 @@ if not size == n_procs:
     sys.exit(0)
 
 if not is_real:
-    dataset = "artifical-data/" + str(n_rows) + "x" + str(n_cols)
+    dataset = "artificial-data/" + str(n_rows) + "x" + str(n_cols)
 
 if is_coded:
 

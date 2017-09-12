@@ -57,7 +57,7 @@ n_procs, n_cols, n_rows, n_stragglers, n_partitions, partial_coded = int(n_procs
 output_dir = output_dir+"/" if not output_dir[-1] == "/" else output_dir
 
 if not partial_coded:
-    output_dir = output_dir + "artifical-data/" + str(n_rows)+"x"+str(n_cols)+ "/" + str(n_procs-1) + "/"
+    output_dir = output_dir + "artificial-data/" + str(n_rows)+"x"+str(n_cols)+ "/" + str(n_procs-1) + "/"
 else:
     output_dir = output_dir + "artificial-data/" + str(n_rows)+"x"+str(n_cols)+"/partial/" + str((n_procs-1)*(n_partitions-n_stragglers)) + "/"
 

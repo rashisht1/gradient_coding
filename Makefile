@@ -2,13 +2,13 @@
 N_PROCS=11
 
 # No. of stragglers in our coding schemes
-N_STRAGGLERS = 5
+N_STRAGGLERS = 4
 
 # For partially coded version: how many pieces of workload will one worker be handling.
-N_PARTITIONS=20
+N_PARTITIONS=10
 
 # Switch to enable partial coded schemes
-PARTIAL_CODED=0
+PARTIAL_CODED=1
 
 # Path to folder containing the data folders
 DATA_FOLDER=/straggdata/
@@ -16,7 +16,7 @@ DATA_FOLDER=/straggdata/
 IS_REAL = 0
 
 DATASET = amazon-dataset
-N_ROWS=5000
+N_ROWS=6000
 N_COLS=100
 
 # Note that DATASET is automatically set to artificial-data/ (n_rows)x(n_cols)/... if IS_REAL is set to 0 \
@@ -32,16 +32,16 @@ naive:
 	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 0 $(N_STRAGGLERS) 0 0
 
 cyccoded:
-	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $$N_STRAGGLERS 0 0
+	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $(N_STRAGGLERS) 0 0
 
 repcoded:
-	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $$N_STRAGGLERS 0 1
+	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $(N_STRAGGLERS) 0 1
 
 avoidstragg:
-	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $$N_STRAGGLERS 0 2
+	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $(N_STRAGGLERS) 0 2
 
 partialrepcoded:
-	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $$N_STRAGGLERS $(N_PARTITIONS) 1
+	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $(N_STRAGGLERS) $(N_PARTITIONS) 1
 
 partialcyccoded:
-	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $$N_STRAGGLERS $(N_PARTITIONS) 0
+	mpirun -np $(N_PROCS) python main.py $(N_PROCS) $(N_ROWS) $(N_COLS) $(DATA_FOLDER) $(IS_REAL) $(DATASET) 1 $(N_STRAGGLERS) $(N_PARTITIONS) 0
