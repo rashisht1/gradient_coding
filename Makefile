@@ -8,7 +8,7 @@ N_STRAGGLERS = 4
 N_PARTITIONS=10
 
 # Switch to enable partial coded schemes
-PARTIAL_CODED=1
+PARTIAL_CODED=0
 
 # Path to folder containing the data folders
 DATA_FOLDER=/straggdata/
